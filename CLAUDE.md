@@ -4,26 +4,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-This repository is still a placeholder for the actual website — no application code, `composer.json`, or `package.json` has been committed yet.
+There is no application code in this repository — no `composer.json`, `package.json`, `.gitignore`, or framework files exist. This is currently a **content/collateral repo** for Novaji Introserve Ltd., not a codebase. There are no build, lint, or test commands because there is nothing to build.
 
-It does, however, contain non-code business collateral used for content tasks (not part of the eventual website codebase):
-- `novaji-logo.png`, `nipep-logo.png` — brand logos
-- `MATRICS_Automated_AML_Solution.pdf`, `NiPEP_v2.pdf` — product one-pagers for the company's two products (MATRICS, an AML solution; NiPEP, a product in development)
-- `Novaji_Profile_2026.pptx` — company profile/pitch deck
-- `.tasks.md` — ad-hoc task briefs for content work (e.g. building the pitch deck); check it for current content-generation asks before assuming a task is code-related
+Tasks here are almost always content or document tasks (editing/generating copy, restructuring a deck, extracting text from a PDF), not software engineering tasks — read the actual request carefully before assuming it wants code.
 
-## Purpose
+## What's in the repo
 
-Per `README.md`: this repo is intended to hold the website for novajii.com, to be built on **Winter CMS** (a Laravel-based CMS).
+- `novaji-logo.png`, `nipep-logo.png` — brand logos (Novaji Introserve; NiPEP sub-brand)
+- `MATRICS_Automated_AML_Solution.pdf` — one-pager for MATRICS, a risk-based AML & transaction-monitoring / anti-fraud platform for financial institutions
+- `NiPEP_v2.pdf` — one-pager/deck for NiPEP, a cloud-based RESTful API web service for screening Nigerian Politically Exposed Persons (PEPs)
+- `Novaji_Profile_2026.pptx` — general company profile deck (services: VAS/USSD, mobile financial services, digital content monetization, enterprise/ERP solutions, systems integration)
+- `Novaji_Investor_Pitch_Deck_2026.pptx` — investor-facing pitch deck, framed around "Building the Compliance & RegTech Infrastructure for African Financial Institutions" (novajii.com)
+- `README.md` — currently just the repo title; carries no project description
 
-## What the .gitignore implies about the planned stack
+Every binary file above has a matching `<filename>:Zone.Identifier` file tracked in git. These are Windows/WSL alternate-data-stream artifacts left over from downloading the files, not real content — don't treat them as documents to read or edit, and don't "clean them up" without checking with the user first since they're already committed history.
 
-The `.gitignore` is pre-configured for a Laravel/Winter CMS project (vendor/, node_modules/, storage paths, `.env`, `public/build`, `auth.json`, etc.), so when code is added it will likely follow standard Laravel conventions:
-- PHP dependencies via Composer (`vendor/`, `composer.json`/`composer.lock`)
-- Front-end assets via npm/yarn (`node_modules/`, `public/build`)
-- Environment config in `.env` (not committed)
-- Winter CMS plugin/theme structure once scaffolded
+## Working with the PDFs/PPTX files
 
-## Notes for future work
+These are binary office documents, not text you can `Read` directly:
+- Extract text with `pdftotext` (e.g. `pdftotext file.pdf -`) for the PDFs.
+- PPTX files are zip archives; slide text lives in `ppt/slides/slideN.xml` and can be pulled out with `unzip -p file.pptx ppt/slides/slide1.xml | grep -o '<a:t>[^<]*</a:t>'`.
 
-There are no build, lint, or test commands yet since no framework files exist. Once Winter CMS is installed, check `composer.json` and `package.json` for the actual scripts before assuming standard Laravel/Winter commands apply.
+There is no source-of-truth text version of these decks/one-pagers in the repo — the PDF/PPTX *is* the document.
